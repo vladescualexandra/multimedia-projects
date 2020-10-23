@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+
+<html >
+<head>
+    <meta charset="utf-8" />
+    <title>Prima pagină</title>
+</head>
+<body>
+
+    A &gt; B
+
+    <!-- comenatariu -->
+    &quot;Maria&amp;Ion&quot;
+
+    <h1>H1</h1>
+    <h2>H2</h2>
+    <h3>H3</h3>
+    <h4>H4</h4>
+    <h5>H5</h5>
+    <h6>H6</h6>
+
+    <p>
+        paragraf.
+    </p>
+    <p>
+        alt <em>paragraf.</em> <br />
+        <strong>something</strong> else tho.
+    </p>
+
+    <pre>
+    Ana
+        are
+    mere.
+    </pre>
+
+    <ol>
+        <li>item1</li>
+        <li>item2</li>
+        <li>item3</li>
+    </ol>
+
+    <ul>
+        <li>item1</li>
+        <li>item2</li>
+        <li>item3</li>
+    </ul>
+
+    <table border="1">
+        <caption>Titlu tabel</caption>
+        <thead>
+            <tr>
+                <th>C1</th>
+                <th>C2</th>
+                <th colspan="2">C3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>A</td>
+                <td>B</td>
+                <td>C</td>
+            </tr>
+            <tr>
+                <td>D</td>
+                <td>E</td>
+                <td>F</td>
+                <td>G</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>F1</td>
+                <td>F2</td>
+                <td>F3</td>
+            </tr>
+        </tfoot>
+    </table>
+
+
+    <form action="http://test.com" method="post">
+
+        <!-- INPUT: type, name, value -->
+        <input type="text" name="nume" value="Ion"/>
+
+        <input type="checkbox" name="chk" value="o-valoare"/>
+        <label for="chk">Checkbox</label>
+        
+        <input type="radio" name="radio1" value="r1" checked/>
+        <label for="r1">R1</label>
+        <input type="radio" name="radio1" value="r2"/>
+        <div>
+            <input type="radio" name="radio2" value="r1" />
+            <input type="radio" name="radio2" value="r2" />
+            <input type="radio" name="radio2" value="r3" />
+        </div>
+
+
+        <input type="hidden" name="ascuns" value="secret"/>
+        <select name="sel">
+            <option value="val1">Valoare 1</option>
+            <option value="val2">Valoare 2</option>
+            <option value="val3">Valoare 3</option>
+        </select>
+
+        <input type="button" value="Test"/>
+        <input type="reset" value="Reset"/>
+        <input type="submit" value="Trimite"/>
+    </form>
+
+</body>
+</html>
