@@ -1,0 +1,212 @@
+﻿[
+  {
+    "cod": "AB",
+    "denumire": "Alba",
+    "populatie": 383252
+  },
+  {
+    "cod": "AR",
+    "denumire": "Arad",
+    "populatie": 475841
+  },
+  {
+    "cod": "AG",
+    "denumire": "Argeş",
+    "populatie": 650332
+  },
+  {
+    "cod": "BC",
+    "denumire": "Bacău",
+    "populatie": 748402
+  },
+  {
+    "cod": "BH",
+    "denumire": "Bihor",
+    "populatie": 620866
+  },
+  {
+    "cod": "BN",
+    "denumire": "Bistriţa-N.",
+    "populatie": 329592
+  },
+  {
+    "cod": "BT",
+    "denumire": "Botoşani",
+    "populatie": 460065
+  },
+  {
+    "cod": "BV",
+    "denumire": "Braşov",
+    "populatie": 629814
+  },
+  {
+    "cod": "BR",
+    "denumire": "Brăila",
+    "populatie": 361218
+  },
+  {
+    "cod": "BZ",
+    "denumire": "Buzău",
+    "populatie": 484524
+  },
+  {
+    "cod": "CS",
+    "denumire": "Caraş-Sev.",
+    "populatie": 332267
+  },
+  {
+    "cod": "CL",
+    "denumire": "Călăraşi",
+    "populatie": 320302
+  },
+  {
+    "cod": "CJ",
+    "denumire": "Cluj",
+    "populatie": 718633
+  },
+  {
+    "cod": "CT",
+    "denumire": "Constanţa",
+    "populatie": 770783
+  },
+  {
+    "cod": "CV",
+    "denumire": "Covasna",
+    "populatie": 229563
+  },
+  {
+    "cod": "DB",
+    "denumire": "Dâmboviţa",
+    "populatie": 531715
+  },
+  {
+    "cod": "DJ",
+    "denumire": "Dolj",
+    "populatie": 705760
+  },
+  {
+    "cod": "GL",
+    "denumire": "Galaţi",
+    "populatie": 635559
+  },
+  {
+    "cod": "GR",
+    "denumire": "Giurgiu",
+    "populatie": 278630
+  },
+  {
+    "cod": "GJ",
+    "denumire": "Gorj",
+    "populatie": 369857
+  },
+  {
+    "cod": "HR",
+    "denumire": "Harghita",
+    "populatie": 334586
+  },
+  {
+    "cod": "HD",
+    "denumire": "Hunedoara",
+    "populatie": 475542
+  },
+  {
+    "cod": "IL",
+    "denumire": "Ialomiţa",
+    "populatie": 296162
+  },
+  {
+    "cod": "IS",
+    "denumire": "Iaşi",
+    "populatie": 901590
+  },
+  {
+    "cod": "IF",
+    "denumire": "Ilfov",
+    "populatie": 371037
+  },
+  {
+    "cod": "MM",
+    "denumire": "Maramureş",
+    "populatie": 527663
+  },
+  {
+    "cod": "MH",
+    "denumire": "Mehedinţi",
+    "populatie": 290253
+  },
+  {
+    "cod": "MS",
+    "denumire": "Mureş",
+    "populatie": 597849
+  },
+  {
+    "cod": "NT",
+    "denumire": "Neamţ",
+    "populatie": 580933
+  },
+  {
+    "cod": "OT",
+    "denumire": "Olt",
+    "populatie": 456554
+  },
+  {
+    "cod": "PH",
+    "denumire": "Prahova",
+    "populatie": 815741
+  },
+  {
+    "cod": "SM",
+    "denumire": "Satu-Mare",
+    "populatie": 392129
+  },
+  {
+    "cod": "SJ",
+    "denumire": "Sălaj",
+    "populatie": 248794
+  },
+  {
+    "cod": "SB",
+    "denumire": "Sibiu",
+    "populatie": 463436
+  },
+  {
+    "cod": "SV",
+    "denumire": "Suceava",
+    "populatie": 740861
+  },
+  {
+    "cod": "TR",
+    "denumire": "Teleorman",
+    "populatie": 396522
+  },
+  {
+    "cod": "TM",
+    "denumire": "Timiş",
+    "populatie": 739217
+  },
+  {
+    "cod": "TL",
+    "denumire": "Tulcea",
+    "populatie": 247111
+  },
+  {
+    "cod": "VS",
+    "denumire": "Vaslui",
+    "populatie": 476406
+  },
+  {
+    "cod": "VL",
+    "denumire": "Vâlcea",
+    "populatie": 406314
+  },
+  {
+    "cod": "VN",
+    "denumire": "Vrancea",
+    "populatie": 393303
+  },
+  {
+    "cod": "B",
+    "denumire": "Bucureşti",
+    "populatie": 2110752
+  }
+]

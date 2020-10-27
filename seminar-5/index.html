@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript">
+        function aplicatie() {
+            let canvas = document.querySelector('canvas');
+            let W = canvas.width, H = canvas.height;
+
+            console.log('Dimensiuni', W, H);
+
+            let context = canvas.getContext('2d');
+
+            context.lineWidth = 8;
+            context.strokeStyle = 'hsl(0, 100%, 50%)';
+            context.fillStyle = 'rgb(0, 255, 0)';
+
+            context.fillRect(W / 2, H / 2, W / 2 - 4, H / 2 - 4);
+            context.strokeRect(W / 2, H / 2, W / 2 - 4, H / 2 - 4);
+
+            context.rect(50, 100, 30, 60); //adauga in lista
+            context.rect(90, 100, 30, 60); //adauga in lista
+
+            context.fillStyle = 'lightblue';
+
+            context.fill(); //umple suprafete din lista (fara stergere)
+
+            context.beginPath(); // sterge lista
+            context.rect(130, 100, 30, 60); //adauga in lista
+            context.lineWidth = 2;
+
+            context.stroke(); // deseneaza linii pt figurile din lista (fara stergere)
+
+            context.strokeStyle = 'navy';
+
+            context.moveTo(W/2, H/2);
+            context.arc(W / 2, H / 2, H / 3, 0, 2 * Math.PI);
+
+            context.moveTo(W, H);
+
+            context.lineTo(0, H);
+            context.lineTo(W/2, 0);
+             context.lineTo(W, H);
+
+            context.stroke(); 
+
+
+        }
+        document.addEventListener('DOMContentLoaded', aplicatie);
+    </script>
+</head>
+<body>
+    <canvas width="640" height="480" style="border: 1px solid black"></canvas>
+</body>
+</html>
