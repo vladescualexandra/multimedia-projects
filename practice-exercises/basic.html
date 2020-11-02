@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+       <title> JavaScript basic - Exercises, Practice, Solution </title>
+    </head>
+
+    <script type="text/javascript">
+
+    function ex1() {
+        console.log("hi?");
+        let elem = document.createElement('p');
+        let date = new Date();
+        let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+        elem.innerText = "Today is: " + days[date.getDay()] + " /";
+        elem.innerText += "Current time is: " + date.getHours() + ":" 
+                + date.getMinutes();
+
+        document.body.appendChild(elem);
+
+    }
+
+    function ex2() {
+    
+    }
+
+
+    function aplicatie() {
+        ex1();
+    }
+
+    document.addEventListener('DOMContentLoaded', aplicatie);
+        
+    </script>
+
+    <body>
+
+    </body>
+
+</html>

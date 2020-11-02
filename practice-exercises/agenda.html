@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Agenda telefonica</title>
+        
+        <style type="text/css">
+
+            body {
+                margin: 0;
+                display: inline;
+                background-color: #427AA1;
+                font-family: 'Courier New', Courier, monospace;
+                color: #DEE5E5;
+            }
+
+            h1 {
+                padding: 30px;
+                background-color:#001A23;
+                margin-top: 0;
+                margin-left: 0;
+                margin-right: 0;
+                font-family: 'Courier New', Courier, monospace;
+                color: #587B7F;
+
+            }
+
+            div {
+                margin: 5%;
+            }
+
+            span {
+                display: block;
+                padding: 7px;
+            }
+
+            label {
+                margin-right: 20px;
+            }
+
+            table {
+                display: inline;
+                border-collapse: collapse;
+                margin-bottom: 50px;
+            }
+
+            td, th, tfoot, caption {
+                border: 2px solid #001A23 ;
+                padding: 10px;
+            }
+
+            form {
+                float: right;
+                background-color: #001A23;
+                border-style: solid;
+            }
+
+            input[type="button"] {
+                padding: 10px;
+                margin: 10px;
+                float: right;
+                background-color: #DEE5E5;
+                color:#001A23;
+            }
+        </style>
+
+        <script type="text/javascript">
+        
+        let nr = 2;
+
+        function btnSave() {
+
+            let table = document.querySelector('tbody');
+
+            let nume = document.querySelector("#nume").value;
+            let prenume = document.querySelector("#prenume").value;  
+            let telefon = document.querySelector("#telefon").value;
+
+            if (nume.length != 0 && prenume.length != 0
+                    && telefon.length != 0) {
+
+                let elem = document.createElement('tr');
+                
+                let cell_nume = document.createElement('td');
+                cell_nume.innerText = nume;
+                let cell_prenume = document.createElement('td');
+                cell_prenume.innerText = prenume;
+                let cell_telefon = document.createElement('td');
+                cell_telefon.innerText = telefon;
+
+                elem.appendChild(cell_nume);
+                elem.appendChild(cell_prenume);        
+                elem.appendChild(cell_telefon);
+
+                table.append(elem);
+                nr++;
+
+            } else {
+                alert("invalid data");
+            }
+
+            let footer = document.querySelector('tfoot td');
+            footer.innerText = "Numar persoane: " + nr;
+
+
+        }
+
+        </script>
+    </head>
+
+    <body>
+        <h1>Agendă telefonică</h1>
+
+    <div>
+
+        <table>
+            <caption>Listă persoane</caption>
+            <thead>
+                <th>Nume</th>
+                <th>Prenume</th>
+                <th>Telefon</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Popescu</td>
+                    <td>Ion</td>
+                    <td>0736402626</td>
+                </tr>
+                <tr>
+                    <td>Vasilescu</td>
+                    <td>Ioana</td>
+                    <td>076516553</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <td colspan="3">Numar persoane: 2</td>
+            </tfoot>
+        </table>
+
+        <form> 
+            <span>
+                <label for="nume">Nume:</label>
+                <input type="text" id="nume"/>
+            </span>
+            
+            <span>
+                <label for="prenume">Prenume:</label>
+                <input type="text" id="prenume"/>
+            </span>
+            
+            <span>
+                <label for="telefon">Telefon</label>
+                <input type="text" id="telefon"/>
+            </span>      
+
+            <input type="button" value="Salveaza" onclick="btnSave()"/>
+        </form>
+   
+    </div>
+    
+    </body>
+</html>
