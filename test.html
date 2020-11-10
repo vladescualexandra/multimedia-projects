@@ -1,0 +1,174 @@
+﻿<!--1) Adăugați în documentul HTML:
+
+un tabel gol cu două coloane (judet, număr cazuri)
+un buton Total
+un element select gol
+2) Scrieți codul JavaScript care la apăsarea pe butonul Total să afișeze numărul total de cazuri folosind funcția alert.
+
+3) Scrieți codul JavaScript care la pornirea paginii să afișeze datele în tabel și să populeze elementul select cu lista de județe.
+
+4) Scrieți codul JavaScript care la selectarea unui județ din listă să adauge un paragraf nou 
+în document cu mesajul 'Județul XY - numărul total de cazuri NNNN (NN% din cazurile la nivel național)'-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+        let date = {
+      "AB": 4163,
+      "AR": 4487,
+      "AG": 6481,
+      "BC": 7371,
+      "BH": 5431,
+      "BN": 2297,
+      "BT": 2720,
+      "BV": 8677,
+      "BR": 3180,
+      "BZ": 3592,
+      "CS": 2297,
+      "CL": 1446,
+      "CJ": 7430,
+      "CT": 4961,
+      "CV": 1950,
+      "DB": 5867,
+      "DJ": 5382,
+      "GL": 5836,
+      "GR": 1674,
+      "GJ": 2663,
+      "HR": 2575,
+      "HD": 3709,
+      "IL": 1907,
+      "IS": 9435,
+      "IF": 5430,
+      "MM": 3587,
+      "MH": 1945,
+      "MS": 4191,
+      "NT": 5474,
+      "OT": 3107,
+      "PH": 8888,
+      "SM": 1416,
+      "SJ": 2092,
+      "SB": 4349,
+      "SV": 8635,
+      "TR": 2735,
+      "TM": 7338,
+      "TL": 1360,
+      "VS": 4571,
+      "VL": 4363,
+      "VN": 3264,
+      "B": 31231
+        };
+
+        let total = 0;
+
+
+        function afis() {
+            console.log("??");
+            alert(total);
+        }
+
+        function aplicatie() {
+
+            let table = document.querySelector('table tbody');
+            let select = document.querySelector('select');
+            let inform = [];
+            let inf = {
+                judet, nr
+            }
+
+            let response =  fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'date'
+                },
+                body: JSON.stringify(inf)
+            })
+
+            inform =  response.json();
+
+
+            for (d in inform) {
+               
+
+                let r = document.createElement('tr');
+
+                for (let i in d) {
+                    let c1 = document.createElement('td');
+                    let c2 = document.createElement('td');
+
+                    c1.innerText = inf.judet;
+                    c1.innerText = inf.nr;
+
+                    total += inf.nr;
+
+                    let opt = document.createElement('option');
+                    opt.innerText = inf.judet;
+
+                    select.appendChild(opt);
+
+                }
+
+                r.appendChild(c1);
+                r.appendChild(c2);
+
+            }
+
+            table.appendChild(r);
+        }
+
+        function schimba() {
+            let elem = document.querySelector('select').selectedIndex;
+
+            let pr = document.createElement('p');
+
+            let XY = elem.judet;
+            let NNNN = elem.nr;
+            let NN = (elem.nr * 100) / total;
+            pr.innerText = `Județul ${XY} - numărul total de cazuri %{NNNN}(${NN} % din cazurile la nivel național)`
+
+            document.body.appendChild(pr);
+        }
+
+
+        document.addEventListener('DOMContentLoaded', aplicatie);
+
+    </script>
+
+    <style>
+        table {
+            border-collapse:collapse;
+            margin-bottom: 10px;
+        }
+
+        #btn {
+            margin-bottom: 10px;
+        }
+
+        th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Judet</th>
+                <th>Numar cazuri</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    
+    <form onsubmit="afis()">
+        <input id="btn" type="button" value="Total" onclick="afis()"/>
+    </form>
+
+    <select id="mySelect" onselect="schimba()">
+    </select>
+
+</body>
+</html>
