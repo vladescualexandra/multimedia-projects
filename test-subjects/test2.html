@@ -17,6 +17,18 @@ HTML populația maximă pentru fiecare țară din vector. -->
     <header>
         <title>Subiect 2</title>
 
+        <style> 
+            td, th {
+                border: 1px solid black;
+                padding: 10px;
+            }
+
+            table {
+                border-collapse: collapse;
+            }
+
+        </style>
+
         <script type="text/javascript">
               let date = [
             { "tara": "BG", "an": 2013, "pop": 11137974 },
@@ -39,9 +51,57 @@ HTML populația maximă pentru fiecare țară din vector. -->
             { "tara": "RO", "an": 2018, "pop": 10291027 }
         ];
 
+
+        function adaugaTara(item) {
+            let table = document.querySelector('#tbody');
+            let row = document.createElement('tr');
+            let cellAn = document.createElement('td');
+            let cellPop = document.createElement('td');
+
+            cellAn.innerText = item.an;
+            cellPop.innerText = item.pop;
+
+            row.appendChild(cellAn);
+            row.appendChild(cellPop);
+            table.appendChild(row);
+
+        }
+
+        function adauga(value) {
+            let table = document.querySelector('#tbody');
+            table.innerHTML = "";
+
+            for (let data of date) {
+                if (data.tara === value) {
+                    adaugaTara(data);
+                }
+            }
+        }
+
+
     </script>
     </header>
     <body>
+
+        <table>
+            <header>
+                <th>An</th>
+                <th>Populație</th>
+            </header>
+            <tbody id="tbody">
+
+            </tbody>
+
+        </table>
+
+        <div>
+            <label>BG</label>
+            <input type="radio" name="radio" value="BG" onchange="adauga(value)" />
+            <label>HU</label>
+            <input type="radio" name="radio" value="HU" onchange="adauga(value)"/>
+            <label>RO</label>
+            <input type="radio" name="radio" value="RO" onchange="adauga(value)"/>
+        </div>
 
     </body>
 </html>

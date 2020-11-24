@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Editor SVG</title>
+    </head>
+
+    <style type="text/css">
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        h1 {
+            background-color: lightblue;
+            margin: 0%;
+            padding: 10px;
+        }
+
+        svg {
+            background-color: silver;
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+
+            cursor: crosshair; /* optional */
+        }
+
+        #elemente * {
+            fill: gray;
+            fill-opacity: 0.2;
+
+            stroke: navy;
+            stroke-opacity: 0.2;
+        }
+
+        #selectie {
+            fill: transparent;
+            stroke: green;
+            stroke-width: 2;
+            stroke-opacity: 0.6;
+            stroke-dasharray: 3, 3; /*optional*/
+        }
+        
+
+        .selectat {
+            stroke: red;
+            stroke-width: 4;
+            stroke-opacity: 0.6;
+        }
+    </style>
+
+    <script type="text/javascript">
+    
+    // 1. Model - doar ce nu se regaseste in DOM
+
+    let editor = null, selector = null, elementSelectat = null;
+    let mx = 0, my = 0, x1 = 0, y1 = 0;
+    // 2. Desenare - DOM-ul se redeseneaza automat
+
+    // 3. Actualizare model - nu este cazul pt editor
+
+    // 4. Tratare evenimente 
+
+    function editorMouseMove(e) {
+        
+        mx = Math.round(e.x - editor.getBoundingClientRect().x);
+        my = Math.round(e.y - editor.getBoundingClientRect().y);
+
+        setareCoordonate(selectie, x1, y1, mx, my);
+
+    }
+
+
+    function editorMouseDown(e) {
+
+        if (e.button === 0) {
+
+                x1 = mx;
+                y1 = my;
+
+                selectie.style.display = 'block';
+
+                setareCoordonate(selectie, x1, y1, mx, my);
+        }         
+    }
+
+    function editorMouseUp(e) {
+        if (e.button === 0) {
+            selectie.style.display = 'none';
+
+            let element = document.createElementNS(
+                'http://www.w3.org/2000/svg', 'rect'
+            );
+
+            setareCoordonate(element, x1, y1, mx, my);
+            element.addEventListener('mousedown', elementMouseDown);
+            document.querySelector('#elemente').append(element);
+        } 
+    }
+
+    function elementMouseDown(e) {
+        if (e.button === 2) {
+            elementSelectat = e.target;
+        
+            for (let element of document.querySelectorAll('#elemente *')) {
+                element.classList.remove('selectat');
+            }
+        
+            elementSelectat.classList.add('selectat');
+        }
+    }
+
+    function setareCoordonate(element, x1, y1, x2, y2) {
+        element.setAttribute('x', Math.min(x1, x2));
+        element.setAttribute('width', Math.max(x1, x2) - Math.min(x1, x2));
+        element.setAttribute('y', Math.min(y1, y2));
+        element.setAttribute('height', Math.max(y1, y2) - Math.min(y1, y2));
+
+    }
+
+
+    function aplicatie() {
+
+        editor = document.querySelector('#editor');
+        selectie = document.querySelector('#selectie');
+        
+        editor.addEventListener('mousemove', editorMouseMove);
+        editor.addEventListener('mousedown', editorMouseDown);
+        editor.addEventListener('mouseup', editorMouseUp);
+        editor.addEventListener('contextmenu', e => e.preventDefault());
+
+        document.addEventListener('keydown', e => {
+            if (elementSelectat && e.keyCode == 46) {
+                elementSelectat.remove();
+                elementSelectat = null;
+            }
+        })
+
+        
+    }
+
+    document.addEventListener('DOMContentLoaded', aplicatie);
+    
+    </script>
+
+    <body>
+
+
+        <h1>Editor SVG</h1>
+
+        <svg id="editor">
+            <svg id="elemente">
+            
+            </svg>
+            <rect id="selectie"
+                x="5" y="5"
+                width="60" height="140"
+                style="display: none"></rect>
+        </svg>
+
+    </body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Seminar 8</title>
+        <style>
+
+            svg rect, polygon {
+                fill: blue;
+                stroke: black;
+                stroke-width: 6;
+                stroke-opacity: 0.8;
+
+            }
+
+            .elipsa {
+                fill: orange;
+                stroke: black;
+                stroke-width: 6;
+                stroke-opacity: 0.6;
+            }
+
+            text {
+                font: bold 10pt Tahoma;
+            }
+
+            svg polyline {
+                fill: transparent;
+                stroke-width: 6;
+                stroke: red;
+            }
+
+        </style>
+
+        <script type="text/javascript">
+        
+        let v = [12, 17, 25, 17, 9, 15, 7, 40, 5, 24];
+
+            function aplicatie() {
+
+                let svg = document.querySelector('svg');
+
+                let W = svg.getAttribute('width');
+                let H = svg.getAttribute('height');
+
+                let w = W / (v.length - 1);
+
+                let points = '';
+                for (let i=0; i< v.length; i++) {
+                    let x = i * w;
+                    let h = H * v[i] / Math.max(...v);
+                    let y = H - h;
+
+                    points += x.toString() + "," + 
+                            y.toString() + " ";
+                }
+
+
+                let linie = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+                linie.setAttribute('points', points);
+
+                svg.append(linie);
+            }
+
+        document.addEventListener('DOMContentLoaded', aplicatie);
+        
+        </script>
+    </head>    
+    <body>
+        <svg width="600" height="400" style="border:1px solid black">
+            <!-- <rect x="200" y="100" width="200" height="200"></rect>
+            <ellipse class="elipsa" cx="500" cy="200" rx="100" ry="200"></ellipse>
+    
+
+            <polygon points="200,100 300,0 400,100"></polygon>
+
+            <text x="10" y="100">Un text</text> -->
+        </svg>
+    </body>
+
+</html>

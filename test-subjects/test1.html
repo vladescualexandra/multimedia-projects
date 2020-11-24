@@ -22,6 +22,17 @@ Vizualizare să afișeze în listă datele pentru anul selectat
     <header>
         <title>Subiect 1</title>
 
+        <style>
+
+            #btnVizualizare {
+                color: green;
+                border: 1px solid green;
+                font-weight: bold;
+                font-family: Arial;
+            }
+
+        </style>
+
         <script type="text/javascript">
             let date = [
                 { "tara": "BG", "an": 2013, "pop": 11137974 },
@@ -43,9 +54,80 @@ Vizualizare să afișeze în listă datele pentru anul selectat
                 { "tara": "RO", "an": 2017, "pop": 10309573 },
                 { "tara": "RO", "an": 2018, "pop": 10291027 }
             ];
+
+
+            
+            
+
+            function popMax() {
+
+                let div = document.querySelector('#max');
+                div.innerHTML = "";
+                let p = document.createElement('p');
+                div.appendChild(p);
+
+                
+                let an;
+                let tara;
+                let max = 0;
+                for (let data of date) {
+                    if (data.pop >= max) {
+                        an = data.an;
+                        tara = data.tara;
+                    }
+                }
+
+
+                p.innerText = `Populația maximă a fost atinsă în anul ${an} în țara ${tara}`;
+
+
+            }
+
+
+            function vizDate() {
+                let select = document.querySelector('select');
+                let option = select.options[select.selectedIndex].innerText;
+                let list = document.querySelector('ul');
+                list.innerHTML = "";
+
+                console.log(option)
+
+                for (let data of date) {
+                    if (data.an == option) {
+                        let li = document.createElement('li');
+                        li.innerText = `${data.tara} - ${data.pop} locuitori`;
+                        list.appendChild(li);
+                    }
+                }
+            }
+
+
+            
+
     </script>
     </header>
     <body>
+
+        <select>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+        </select>
+
+        <input id="btnVizualizare" type="button" value="Vizualizare date"
+                onclick="vizDate()" />
+        <input type="button" value="Maxim" onclick="popMax()"/>
+        
+        <ul>
+
+        </ul>
+
+        <div id="max">
+
+        </div>
 
     </body>
 </html>

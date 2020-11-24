@@ -20,10 +20,47 @@ din listă culoarea acestuia să devină roșie.-->
         <title>Subiect 4</title>
 
         <script type="text/javascript">
+
+
+        function adauga() {
+        let lista = document.querySelector('#persoane');
+
+            let nume = document.getElementsByName('nume')[0].value;
+            let cod = document.getElementsByName('cod')[0].value;
+
+            let item = document.createElement('li');
+            console.log(item);
+            item.innerText = `${nume} - ${cod}`;
+            item.setAttribute('id', `${nume}`);
+            item.setAttribute('onclick', 'coloreaza(id)');
+
+            lista.appendChild(item);
+        }
+
+        function coloreaza(id) {
+            let item = document.querySelector(`#${id}`);
+            item.setAttribute('style', 'color: red;');
+        }
             
     </script>
     </header>
     <body>
 
+        <form>
+            <label for="nume"> Nume
+                <input type="text" name="nume">
+            </label>
+            <label for="cod"> Cod
+                <input type="text" name="cod">
+            </label>
+
+            <input type="button" value="Adauga" onclick="adauga()">
+        </form>
+
+
+        <ol id="persoane"
+        >
+        <li> dknalndlas </li>
+    </ol>
     </body>
 </html>

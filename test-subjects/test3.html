@@ -1,8 +1,9 @@
 <!--1) Adăugați în documentul HTML:
 
-un tabel gol cu două coloane (judet, număr cazuri)
-un buton Total
-un element select gol
+- un tabel gol cu două coloane (judet, număr cazuri)
+- un buton Total
+- un element select gol
+
 2) Scrieți codul JavaScript care la apăsarea pe butonul 
 Total să afișeze numărul total de cazuri folosind funcția alert.
 
@@ -17,6 +18,17 @@ numărul total de cazuri NNNN (NN% din cazurile la nivel național)'-->
 <html>
     <header>
         <title>Subiect 3</title>
+
+
+        <style>
+            th, td {
+                border: 1px solid black;
+            }
+
+            table {
+                border-collapse: collapse;
+            }
+        </style>
 
         <script type="text/javascript">
            let date = {
@@ -64,10 +76,98 @@ numărul total de cazuri NNNN (NN% din cazurile la nivel național)'-->
       "B": 31231
         };
 
- 
+
+        let sum = 0;
+        
+
+        function calcTotal() {
+            for (let prop in date) {
+                sum += date[`${prop}`];
+            }
+
+            return sum;
+        }
+        function total() {
+            sum = calcTotal();
+            alert(sum);
+           
+            
+        }
+
+
+        function selecteaza(prop) {
+            console.log(prop);
+            let div = document.querySelector('div');   
+            div.innerHTML = "";
+            let XY = prop;
+            let NNNN = date[`${prop}`];
+            let NN = NNNN/calcTotal();
+
+
+            let p = document.createElement('p');
+       
+            p.innerText = `Județul ${XY} - numărul total de cazuri ${NNNN} (${NN}% din cazurile la nivel național)`;
+       
+            div.appendChild(p);
+        }
+
+        function aplicatie() {
+            let select = document.querySelector('#mySelect');
+            let table = document.querySelector('#tbody');
+
+
+            for (let prop in date) {
+                let option = document.createElement('option');
+                option.innerText = prop;
+                option.value = prop;
+                
+
+                select.appendChild(option);
+                option.addEventListener('onselect', selecteaza(prop));
+
+
+                let row = document.createElement('tr');
+                let cellJudet = document.createElement('td');
+                let cellNumar = document.createElement('td');
+
+                cellJudet.innerText = prop;
+                cellNumar.innerText =  date[`${prop}`];
+
+                row.appendChild(cellJudet);
+                row.appendChild(cellNumar);
+
+                table.appendChild(row);
+
+                
+            }
+        }
+
+    
+
+        document.addEventListener('DOMContentLoaded', aplicatie);
+
+
+
     </script>
     </header>
     <body>
 
+        <table>
+            <thead>
+                <th>Judet</th>
+                <th>Numar cazuri</th>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+        </table>
+
+        <input type="button" value="Total" onclick="total()">
+
+        <select id="mySelect">
+
+        </select>
+
+        <div></div>
     </body>
 </html>
