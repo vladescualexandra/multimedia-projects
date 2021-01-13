@@ -7,4 +7,4 @@ Seminarii multimedia.
 4. Random integers generated list
 5. Tic Tac Toe
 6. Graph based on Covid and region (JSON).
-7. 
+7. Penguins image with effects
