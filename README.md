@@ -8,3 +8,7 @@ Seminarii multimedia.
 5. Tic Tac Toe
 6. Graph based on Covid and region (JSON).
 7. Penguins image with effects
+8. Penguins puzzle
+9. Editor SVG.
+10. Audio player.
+11. Video player.
