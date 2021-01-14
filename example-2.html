@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Seminar 3 + Seminar 4</title>
+    </head>
+    <body>
+        <h1>Phone book</h1>
+        <table>
+            <caption>Contacts list</caption>
+            <thead>
+                <th>Last name</th>
+                <th>First name</th>
+                <th>Phone number</th>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <td colspan="3">Number of contacts: 2</td>
+            </tfoot>
+        </table>
+
+        <form action="#">
+            <label for="last_name">Last name:</label>
+            <input type="text" id="last_name"/>
+
+            <label for="first_name">First name:</label>
+            <input type="text" id="first_name"/>
+
+            <label for="phone">Phone number:</label>
+            <input type="text" id="phone"/>
+
+            <input type="button" value="Add contact" id="add"/>
+        </form>
+    </body>
+
+    <style>
+        body {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            grid-column-gap: 20px;
+            font-family: Tahoma;
+            font-size: 11pt;
+            line-height: 1.2em;
+            padding: 12px;
+            margin: 0px;
+        }
+
+        h1 {
+            grid-column-start: 1;
+            grid-column-end: 3;
+            background-color: navy;
+            color: white;
+            padding: 16px;
+            margin: -12px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            border: 1px solid gray;
+            border-collapse: collapse;
+            float: left;
+            grid-column-start: 1;
+            grid-column-end: 2;
+        }
+
+        caption {
+            border: 1px solid black;
+            border-bottom: none;
+            padding: 8px 16px; /* top-bottom right-left*/
+            font-weight: bold;
+            background-color: darkgrey;
+        }
+
+        tr, td {
+            border: 1px solid black;
+        }
+    </style>
+
+    <script>
+
+        let contacts;
+        const url = 'http://ase.softmentor.ro/agenda';
+        
+        let application = () => {
+            getData();
+            let addBtn = document.querySelector('#add');
+            addBtn.addEventListener('click', addContact);
+        }
+
+        let getData = async() => {
+            let response = await fetch(url);
+            contacts = await response.json();
+            display();
+        }
+
+        let display = () => {
+            let tbody = document.querySelector('tbody');
+            tbody.innerHTML = '';
+        
+            for (let contact of contacts) {
+                let row = document.createElement('tr');
+                tbody.append(row);
+
+                for (let prop in contact) {
+                    let cell = document.createElement('td');
+                    cell.innerText = contact[prop];
+                    row.append(cell);
+                }
+            }
+
+            let footer = document.querySelector('tfoot td');
+            footer.innerText = `Number of contacts: ${contacts.length}`;
+        }
+
+        let addContact = async () => {
+            let last_name = document.querySelector('#last_name').value;
+            let first_name = document.querySelector('#first_name').value;
+            let phone = document.querySelector('#phone').value;
+
+            let contact = {
+                nume: last_name, 
+                prenume: first_name, 
+                telefon: phone
+            };
+            let response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(contact)
+            });
+
+            contacts = await response.json();
+            console.log(contacts.length);
+            
+            display();
+        }
+
+        document.addEventListener('DOMContentLoaded', application);
+    </script>
+</html>

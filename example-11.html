@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Seminar 11</title>
+    </head>
+    <body>
+        <canvas width="640" height="360"
+            style="border: 1px solid black"></canvas>
+    
+        <script>
+            // 1. Model
+            let video = 'media/video/video1.mp4', smallVideo;
+            let canvas, context, W, H;
+
+            let px = 10, py = 10, pw = 160, ph = 90, h = 30;
+            let w;
+            let drawControls = false;
+            let mx = 0, my = 0;
+
+            // 2. Desenare
+            function draw() {
+                context.drawImage(video, 0, 0, W, H);
+
+                if (drawControls) {
+                    context.drawImage(smallVideo, 
+                        0, 0, W, H,
+                        px, py, pw, ph);
+
+                    context.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                    context.fillRect(0, H-h, W, h);
+
+                    context.fillStyle = 'rgba(255, 0, 0, 0.3)';
+                    w = video.currentTime * W / video.duration;
+                    context.fillRect(0, H-h, w, h);
+
+                    context.fillStyle = 'white';
+                    context.font = '14pt Arial';
+                    context.textAlign = 'left';
+                    context.textBaseline = 'middle';
+                    context.fillText(video.src, 5, H-h/2);
+
+                    context.textAlign = 'right';
+                    context.fillText(Math.round(video.currentTime), W-10, H-h/2);
+                } 
+
+                requestAnimationFrame(draw);
+            }
+
+            // 3. Actualizare model
+            // 4. Tratare evenimente
+            function canvasClick() {
+                if (mx >= px && mx <= px + pw
+                    && my >= py && my <= py + ph) {
+
+                    let aux = video;
+                    video = smallVideo;
+                    smallVideo = aux;
+                } else if (my >= H - h) {
+                    video.currentTime = mx * video.duration / W;
+                } else {
+                    video.paused ? video.play() : video.pause();
+                    smallVideo.paused ? smallVideo.play() : smallVideo.pause()
+                }
+            }
+
+
+            function application() {
+                video = document.createElement('video');
+                video.src = 'media/video/video1.mp4';
+                video.load();
+                video.loop = true;
+                canvas = document.querySelector('canvas');
+                context = canvas.getContext('2d');
+                console.log(context);
+                W = canvas.width;
+                H = canvas.height;
+
+                smallVideo = document.createElement('video');
+                smallVideo.loop = true;
+                smallVideo.src = 'media/video/video2.mp4';
+                smallVideo.load();
+
+                canvas.addEventListener('mouseenter', e => {
+                    drawControls = true;
+                });
+
+                canvas.addEventListener('mouseleave', e => {
+                    drawControls = false;
+                });
+
+                canvas.addEventListener('mousemove', e => {
+                    mx = e.x - canvas.getBoundingClientRect().x;
+                    my = e.y - canvas.getBoundingClientRect().y;
+                });
+
+                canvas.addEventListener('click', canvasClick);
+                
+                draw();
+            }
+
+            document.addEventListener('DOMContentLoaded', application);
+            
+        </script>    
+    </body>
+</html>

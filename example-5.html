@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Seminar 4R</title>
+    </head>
+    <body>
+        <h1>Tic Tac Toe</h1>
+        <table>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <input id="clear" type="button" value="Clear"/>
+
+        <style type="text/css">
+            table {
+                border-collapse: collapse;
+            }
+            
+            td {
+                border: 2px solid black;
+                width: 100px;
+                height: 100px;
+                font-size: 40pt;
+                text-align: center;
+            }
+
+            .empty {
+                background-color: green;
+            }
+
+            .occupied {
+                background-color: red;
+            }
+        </style>
+
+        <script type="text/javascript">
+
+            const VAL_X = 'X';
+            const VAL_O = 'O';
+
+            let positionedElement = VAL_X;
+
+            function getCell(position) {
+                let tbody = document.querySelector('tbody');
+
+                return tbody
+                    .children[position.y] // => TR
+                    .children[position.x] // => TD
+            }
+
+            function getValue(position) {
+                return getCell(position).innerText;
+            }
+            
+            function isEmpty(position) {
+                return getValue(position) !== VAL_X 
+                    && getValue(position) !== VAL_O;
+            }
+
+            function getPosition(element) {
+                let tbody = document.querySelector('tbody');
+
+                for (let y = 0; y < tbody.children.length; y++) {
+                    let row = tbody.children[y];
+
+                    for (let x = 0; x < row.children.length; x++) {
+                        let cell = row.children[x];
+
+                        if (cell == element) {
+                            return {x: x, y: y};
+                        }
+                    }
+                }
+            }
+
+            function turn(e) {
+
+                let position = getPosition(e.target);
+                if (position == null) return;
+
+                if (!isEmpty(position)) {
+                    alert('Invalid move - cell already occupied!');
+                    return;
+                }
+
+                let cell = getCell(position);
+                cell.innerText = positionedElement;
+
+                cell.classList.remove('empty');
+                cell.classList.add('occupied');
+
+                if (positionedElement === VAL_X) {
+                    positionedElement = VAL_O;
+                } else {
+                    positionedElement = VAL_X;
+                }
+
+            }
+
+            function clearTable() {
+                for (let cell of document.querySelectorAll('td')) {
+                    cell.innerText = '';
+                }
+            }
+
+            function application() {
+                let table = document.querySelector('table');
+                table.addEventListener('click', turn);
+
+                for (let cell of document.querySelectorAll('td')) {
+                    cell.addEventListener('mouseenter', e => {
+                        let position = getPosition(cell);
+                        if (isEmpty(position)) {
+                            cell.classList.add('empty');
+                        } else {
+                            cell.classList.add('occupied');
+                        }
+                    });
+
+                    cell.addEventListener('mouseleave', e => {
+                        cell.classList.remove('empty');
+                        cell.classList.remove('occupied');
+                    });
+                }
+
+                let clear = document.querySelector('#clear');
+                clear.addEventListener('click', clearTable);
+                
+            }
+
+            document.addEventListener('DOMContentLoaded', application);
+        </script>
+    </body>
+</html>

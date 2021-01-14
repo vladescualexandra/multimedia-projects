@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Seminar 4R</title>
+    </head>
+    <body>
+        <h1>Graph</h1>
+        <label for="valuesText">Values: </label>
+        <input id="valuesText" type="text" placeholder="1,2,3,4,5..." />
+        <input id="graphBtn" type="button" value="Graph"/>
+        <div id="graph">
+            
+        </div>
+
+        <style type="text/css">
+            #graph {
+                border: 1px solid black;
+            }
+
+            .bar {
+                background-color: aquamarine;
+                margin-bottom: 5px;
+            }
+        </style>
+
+        <script>
+
+            function drawGraph(values) {
+                let graph = document.querySelector('#graph');
+                graph.innerHTML = '';
+
+                let max = Math.max.apply(null, values);
+                
+                for (let value of values) {
+                    let bar = document.createElement('div');
+                    bar.classList.add('bar');
+                    bar.innerText = value.toString();
+                    graph.append(bar);
+
+                    let w = (value * 100) / max + '%';
+                    bar.style.width = w;
+                }
+            }
+
+            function application() {
+                let btn = document.querySelector('#graphBtn');
+                btn.addEventListener('click', () => {
+                    let valuesText = document.querySelector('#valuesText');
+                    let values = valuesText.value.split(',')
+                                    .map(item => parseInt(item, 10));
+                
+                    drawGraph(values);
+                });
+            }
+
+            document.addEventListener('DOMContentLoaded', application);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Seminar 4R</title>
+    </head>
+    <body>
+        <h1>Random number list</h1>
+        <ul id="list">
+
+        </ul>
+    
+        <script type="text/javascript">
+
+            function add(list) {
+                let element = document.createElement('li');
+                element.innerText = 1 + Math.floor(Math.random() * 100);
+                list.append(element);
+
+                element.addEventListener('click', e => e.target.remove());
+            }
+
+            function application() {
+                let list = document.querySelector('#list');
+                setInterval(add, 1000, list);
+            }
+
+            document.addEventListener('DOMContentLoaded', application);
+        </script>
+    </body>
+
+</html>

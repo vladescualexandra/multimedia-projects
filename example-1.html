@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <metea charset="utf-8" />
+        <title>Seminar 2</title>
+    </head>
+    <body>
+        <form action="http://ase.softmentor.ro:81/Home/ExecutaOperatie"
+                method="post" >
+        
+            <input type="text" name="operand1"/> 
+            <input type="text" name="operand2" /> 
+
+            <select name="operatie">
+                <option value="plus">plus</option>
+                <option value="minus">minus</option>
+                <option value="inmultit">inmultit</option>
+                <option value="impartit">impartit</option>
+            </select>
+
+            <input type="radio" id="text" name="raspText" value="true" /> 
+            <label for="text">Text</label>
+
+            <input type="radio" id="HTML" name="raspText" value="false" /> 
+            <label for="HTML">HTML</label>
+
+            <input type="submit" />
+        </form>
+    </body>
+</html>

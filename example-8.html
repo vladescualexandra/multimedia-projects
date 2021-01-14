@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Seminar 7</title>
+    </head>
+    <body>
+        <h1>Penguins puzzle</h1>
+        <canvas width="300" height="100"></canvas>
+        
+        <script type="text/javascript">
+            // 1. Model
+            let canvas, context, W, H;
+            let mx = 0, my = 0;
+            let pieces = [];
+
+            let w = 120, h = 90;
+            let image;
+
+            let selectedIndex = -1;
+            let dx, dy;
+            
+            // 2. Desenare
+            function draw() {
+                // a) Stergere scena.
+                context.drawImage(image, 0, 0);
+                context.fillStyle = 'rgba(200, 200, 200, 0.8)';
+                context.fillRect(0, 0, W, H);
+
+                // b) Desenare obiecte.
+                context.fillStyle = 'red';
+                context.strokeStyle = 'green';
+                context.lineWidth = 3;
+                
+                for (let piece of pieces) {
+                    context.drawImage(image, 
+                        piece.sx, piece.sy, w, h,
+                        piece.x, piece.y, w, h);
+
+                    if (piece.done) {
+                        context.fillStyle = 'rgba(0, 200, 0, 0.4)';
+                        context.fillRect(piece.x, piece.y, w, h);
+                    }
+                }
+
+                let remainedPieces = pieces.filter(item => !item.done);
+                if (remainedPieces.length === 0) {
+                    context.drawImage(image, 0, 0);
+                    context.font = 'bold 128pt Tahoma';
+                    context.textBaseline = 'middle';
+                    context.textAlign = 'center';
+                    context.fillText('You won!', W/2, H/2);
+                    context.strokeText('You won!', W/2, H/2);
+                } 
+
+                // c) Programare executie.
+                requestAnimationFrame(draw);
+
+            }
+
+            // 3. Actualizare model
+            function updateModel() {
+                if (selectedIndex >= 0) {
+                    pieces[selectedIndex].x = mx - dx;
+                    pieces[selectedIndex].y = my - dy;
+                }
+            }
+
+            // 4. Tratare evenimente (actualizare model)
+            function mouseMove(e) {
+                mx = Math.round(e.x - canvas.getBoundingClientRect().x);
+                my = Math.round(e.y - canvas.getBoundingClientRect().y);
+            }
+
+            function mouseDown() {
+                for (let i = pieces.length - 1; i >= 0; i--) {
+                    mouseInside = mx >= pieces[i].x && mx <= pieces[i].x + w
+                                    && my >= pieces[i].y && my <= pieces[i].y + h;
+
+                    if (!pieces[i].done && mouseInside) {
+                        dx = mx - pieces[i].x;
+                        dy = my - pieces[i].y;
+
+                        let piece = pieces.splice(i, 1)[0];
+                        pieces.push(piece);
+                        selectedIndex = pieces.length - 1;
+                        break;
+                    }
+                }
+            }
+
+            function mouseUp() {
+                if (selectedIndex >= 0) {
+                    let p = pieces[selectedIndex];
+                    let distance = (p.x - p.sx) * (p.x - p.sx) + (p.y - p.sy) * (p.y - p.sy);
+                    distance = Math.sqrt(distance);
+
+                    if (distance < 60) {
+                        p.x = p.sx;
+                        p.y = p.sy;
+                        p.done = true;
+                    }
+
+                    selectedIndex = -1;
+                }
+            }
+
+            function application() {
+                image = document.createElement('img');
+                image.src = './media/penguins.jpg';
+                image.addEventListener('load', e => {
+                    // Initializare model
+                    canvas = document.querySelector('canvas');
+                    context = canvas.getContext('2d');
+                    W = canvas.width = image.naturalWidth;
+                    H = canvas.height = image.naturalHeight;
+
+                    let n = 3;
+                    w = W/n;
+                    h = H/n;
+
+                    for (let c = 0; c < n; c++) {
+                        for (let l = 0; l < n; l++) {
+                            pieces.push({
+                                x: c * w + Math.random() * 70,
+                                y: l * h + Math.random() * 70,
+                                sx: c * w,
+                                sy: l * h
+                            });
+                        }
+                    }
+
+                    // pornire aplicatie
+                    draw();
+                    setInterval(updateModel, 20);
+
+                    document.addEventListener('mousemove', mouseMove);
+                    document.addEventListener('mousedown', mouseDown);
+                    document.addEventListener('mouseup', mouseUp);
+                });
+            }
+
+
+            document.addEventListener('DOMContentLoaded', application);
+        </script>
+    </body>
+</html>

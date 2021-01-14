@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Seminar 5</title>
+    </head>
+    <body>
+        <h1>Covid graph based on region</h1>
+        <select id="judete"></select>
+        <br>
+        <canvas id="graph"
+                width="500"
+                height="300"
+                style="border: 1px solid black"></canvas>
+    </body>
+
+    <script>
+        const URL_JUDETE = './media/judete.json';
+        const URL_COVID = 'https://d35p9e4fm9h3wo.cloudfront.net/latestData.json';
+
+        let judete, dateCovid;
+
+        async function drawGraph() {
+            let judet = judete.find(item => item.cod === document.querySelector('#judete').value);
+            let values = judet.date
+                            .map(item => item.nrCazuri14 * 1000 / judet.populatie)
+                            .reverse();
+
+            let canvas = document.querySelector('#graph');
+            let context = canvas.getContext('2d');
+
+            let W = canvas.width;
+            let H = canvas.height;
+
+            let n = values.length;
+            let w = W / n;
+            const MAX_VALUE = 8;
+            let h = H / MAX_VALUE;
+
+            context.fillStyle = 'white';
+            context.fillRect(0, 9, W, H);
+
+            context.fillStyle = 'rgba(0, 255, 0, 0.1)';
+            context.fillRect(0, H-h, W, h);
+
+            context.fillStyle = 'rgba(255, 255, 0, 0.1)';
+            context.fillRect(0, H - (1+2) * h, W, 2 * h);
+
+            context.fillStyle = 'rgba(255, 0, 0, 0.1)';
+            context.fillRect(0, 0, W, (MAX_VALUE - 2 - 1) * h);
+
+            context.strokeStyle = 'black';
+            context.lineWidth = 3;
+            context.beginPath();
+
+            for (let i = 0; i < n; i++) {
+                let x = w * i;
+                let y = H - values[i] * H / MAX_VALUE;
+                context.lineTo(x, y);
+            }
+
+            context.stroke();
+        }
+
+
+        async function application() {
+            let response = await fetch(URL_JUDETE);
+            judete = await response.json();
+
+            response = await fetch(URL_COVID);
+            dateCovid = await response.json();
+
+            for (let data in dateCovid.historicalData) {
+                let dateZi = dateCovid.historicalData[data];
+                for (let codJudet in dateZi.countyInfectionsNumbers) {
+                    let dateJudet = judete.find(item => item.cod === codJudet);
+
+                    if (!dateJudet) continue;
+                    if (dateJudet.date === undefined) 
+                        dateJudet.date = [];
+
+                    dateJudet.date.push({
+                        "data": data,
+                        "nrTotalCazuri": dateZi.countyInfectionsNumbers[codJudet]
+                    });
+                }
+            }
+
+            for (let judet of judete) {
+                for (let dateZi of judet.date) {
+                    let dateZiAnterioara = judet.date.find(item => item.data < dateZi.data);
+                    if (dateZiAnterioara) {
+                        dateZi.nrCazuriNoi = dateZi.nrTotalCazuri - dateZiAnterioara.nrTotalCazuri;
+                    } else {
+                        dateZi.nrCazuriNoi = 0;
+                    }
+
+                    let dateZi14 = judet.date.filter(item => item.data < dateZi.data).
+                        slice(0, 14).pop();
+
+                    if (dateZi14) {
+                        dateZi.nrCazuri14 = dateZi.nrTotalCazuri - dateZi14.nrTotalCazuri;
+                    } else {
+                        dateZi.nrCazuri14 = 0;
+                    }
+                }
+            }
+            let select = document.querySelector('#judete');
+            for (let judet of judete) {
+                let optiune = document.createElement('option');
+                optiune.value = judet.cod;
+                optiune.innerText = `${judet.cod} - ${judet.denumire}`;
+                select.append(optiune);
+            }
+
+            drawGraph();
+            select.addEventListener('change', drawGraph);
+        }
+
+        document.addEventListener('DOMContentLoaded', application);
+    </script>
+</html>
