@@ -1,6 +1,3 @@
-# multimedia-projects
-Seminarii multimedia.
-
 1. Simple HTTP Request: POST.
 2. Fetch data and HTTP Request: POST 
 3. Graph based on integer values
