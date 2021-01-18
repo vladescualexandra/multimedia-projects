@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Exam revision</title>
+    </head>
+    <body>
+        <h1>Image with the last 100 columns blue</h1>
+        <canvas width="640" height="380"
+                style="border: 1px solid black;">
+            </canvas>
+        
+        <script type="text/javascript">
+            let canvas, context, W, H, image;
+            function application() {
+                canvas = document.querySelector('canvas');
+                context = canvas.getContext('2d');
+                image = document.createElement('img');
+                image.src = 'media/penguins.jpg';
+                
+                W = canvas.getBoundingClientRect().width;
+                H = canvas.getBoundingClientRect().height;
+
+                context.drawImage(image, 0, 0, W,  H);
+
+                let imagedata = context.getImageData(0, 0, W, H);
+                let v = imagedata.data;
+
+                for (let y=0; y < H; y++) {
+                    for (let x = 0; x < W; x++) {
+                        let i = y * W * 4 + x * 4;
+                        if (x >= W - 100) {
+                            v[i+2] = 255;
+                        }
+                    }
+                }
+
+                context.putImageData(imagedata, 0, 0);
+                requestAnimationFrame(application);
+            }
+
+            document.addEventListener('DOMContentLoaded', application);
+        </script>
+    </body>
+</html>

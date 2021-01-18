@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Exam revision</title>
+    </head>
+    <body>
+        <h1>SVG Audio Player</h1>
+        <audio src="media/audio/audio1.mp3" controls></audio>
+        <br>
+        <svg id="svg" width="600">
+            <rect id="bar" x="0" y="0" width="500" height="100"></rect>
+            <rect id="progress" x="0" y="0" width="0" height="100"></rect>
+        </svg>
+        <script type="text/javascript">
+            let svg;
+            let progress;
+            let audio;
+            let pb = 0;
+            function application() {
+                svg = document.querySelector('#svg');
+                progress = document.querySelector('#progress');
+                audio = document.querySelector('audio');
+
+
+                let w = document.querySelector('#bar').getAttribute('width');
+                pb = (audio.currentTime * w)/ audio.duration;
+                progress.setAttribute('width', pb);
+                
+                requestAnimationFrame(application);
+            }
+
+            document.addEventListener('DOMContentLoaded', application);
+        </script>
+        <style type="text/css">
+            #progress {
+                fill: gray;
+            }
+        </style>
+    </body>
+</html>

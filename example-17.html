@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Exam revision</title>
+    </head>
+    <body>
+        <h1>Click on button to display image/square</h1>
+        <input id="btnImage" type="button" value="Display image"/>
+        <input id="btnSquare" type="button" value="Display square"/>
+        <canvas width="640" height="380" style="border: 1px solid black;"></canvas>
+        <script type="text/javascript">
+            let canvas, context, btnImage, btnSquare;
+            let W, H;
+
+            function displayImage() {
+                let image = document.createElement('img');
+                image.src = 'media/penguins.jpg';
+
+                context.drawImage(image, 0, 0, W, H);
+                requestAnimationFrame(displayImage);
+            }
+
+            function displaySquare() {
+                context.fillStyle = 'white';
+                context.fillRect(0, 0, W, H);
+                context.fillStyle = 'red';
+                context.fillRect(W/2, H/2, 100, 100);
+                requestAnimationFrame(displaySquare);
+            }
+
+            function application() {
+                canvas = document.querySelector('canvas');
+                context = canvas.getContext('2d');
+
+                btnImage = document.querySelector('#btnImage');
+                btnSquare = document.querySelector('#btnSquare');
+
+                W = canvas.getBoundingClientRect().width;
+                H = canvas.getBoundingClientRect().height;
+
+                btnImage.addEventListener('click', displayImage);
+                btnSquare.addEventListener('click', displaySquare);
+            }
+
+            document.addEventListener('DOMContentLoaded', application);
+        </script>
+    </body>
+</html>

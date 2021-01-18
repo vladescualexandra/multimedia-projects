@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Exam revision</title>
+    </head>
+    <body>
+        <h1>Click on the div to change the audio's current time</h1>
+        <audio src="media/audio/audio1.mp3" controls></audio>
+        <div id="progress" style="border: 1px solid black">
+            Click on the div to change the audio's current time</div>
+        <script type="text/javascript">
+
+            let mx = 0;
+
+            function application() {
+
+                let progress = document.querySelector('#progress');
+                let audio = document.querySelector('audio');
+                let progressx = progress.getBoundingClientRect().x
+                let progresswidth = progress.getBoundingClientRect().width;
+                progress.addEventListener('click', (e) => {
+                    mx = e.x - progressx;
+                    let pb = mx / progresswidth * audio.duration;
+                    audio.currentTime = pb;
+                })
+            }
+
+            document.addEventListener('DOMContentLoaded', application);
+        </script>
+    </body>
+</html>
